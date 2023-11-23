@@ -4,58 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emotion-based Music Recommender</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@500&display=swap" rel="stylesheet"> <!-- Google Fonts -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-            background-image: url('images/backgroundimage.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-        h1 {
-            font-family: 'Dancing Script', cursive; /* Google Font for the heading */
-            font-size: 48px; /* Larger Font Size for the heading */
-        }
-        textarea#emotion-input {
-            width: 70%; /* Wider text area */
-            height: 100px; /* Adjustable height */
-            border-radius: 5px;
-            padding: 10px;
-            font-size: 16px; /* Larger font size for better readability */
-            margin-bottom: 10px; /* Space between textarea and button */
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        button {
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        #recommendation-message {
-            font-family: 'Montserrat', sans-serif; /* Google Font for the message */
-            font-size: 32px; /* Increased Font Size for the message */
-            color: #996515; /* A distinct color */
-            opacity: 0; /* Start with 0 opacity for animation */
-            transition: opacity 100s ease; /* Animation transition */
-            display: none; /* Initially hide the message */
-            margin-top: 40px; /* Space below the submit button */
-            margin-bottom: 20px;
-        }
-        #spotify-iframe {
-            width: 60%; /* Less wide iframe container */
-            margin: 20px auto; /* Center align */
-            display: none; /* Initially hide the iframe div */
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 12px;
-            padding: 0px;
-            opacity: 0; /* Start with 0 opacity for animation */
-            transition: opacity 10s ease; /* Extended Animation transition */
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
     <h1>Emotion-based Music Recommender</h1>
@@ -65,20 +15,6 @@
     <div id="spotify-iframe">
         <!-- Spotify track will be displayed here -->
     </div>
-
-    <script>
-    function displaySpotifyTrack() {
-        var recommendationMessage = document.getElementById('recommendation-message');
-        recommendationMessage.style.display = 'block';
-        recommendationMessage.style.opacity = 1; // Trigger the message animation
-
-        var iframeHtml = '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3USxtqRwSYz57Ewm6wWRMp?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
-        var spotifyIframeDiv = document.getElementById('spotify-iframe');
-        spotifyIframeDiv.innerHTML = iframeHtml; // Replace existing content
-        spotifyIframeDiv.style.display = 'block';
-        spotifyIframeDiv.style.opacity = 1; // Trigger the iframe animation
-    }
-    </script>
-
+    <script src="js/script.js"></script>
 </body>
 </html>
