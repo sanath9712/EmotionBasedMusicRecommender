@@ -3,9 +3,9 @@ import csv
 import openai
 import time
 
-# Set your OpenAI API key
+#Set your OpenAI API key
 openai.api_key = os.environ.get('$OPEN_AI_API_KEY')
-# List of emotions
+#List of emotions
 emotions = [
     "Happiness", "Contentment", "Confidence", "Neutral", "Sadness",
     "Anger", "Fear", "Surprise", "Disgust", "Love",
@@ -13,7 +13,6 @@ emotions = [
     "Frustration", "Longing", "Optimism"
 ]
 
-# Directories
 input_dir = '../friendscsv'
 output_dir = 'friendsprocessedcsv'
 
@@ -35,7 +34,6 @@ def process_file(file_path):
         for row in reader:
             dialogue = row['dialogue']
 
-            # Keep trying until a successful response is received
             while True:
                 try:
                     response = openai.ChatCompletion.create(
@@ -49,11 +47,20 @@ def process_file(file_path):
                 except openai.error.Timeout as e:
                     print(f"Timeout error: {e}. Retrying...")
                     time.sleep(5)  # Wait for 5 seconds before retrying
+                except openai.error.APIError as e:
+                    print(f"API error: {e}. Retrying...")
+                    time.sleep(10)  # Longer delay for API errors
+                except openai.error.ServiceUnavailableError as e:
+                    print(f"Service unavailable error: {e}. Sleeping for 30 minutes...")
+                    time.sleep(1800)  # Sleep for 30 minutes
+                
 
             emotions_list = get_emotions_from_response(response.choices[0].message.content)
             joined_emotions = ', '.join(emotions_list) if emotions_list else "Unknown"
             print(f"Dialogue: {dialogue}\nIdentified Emotions: {joined_emotions}\n")
             processed_data.append({'Dialogue': dialogue, 'Emotions': joined_emotions})
+
+            time.sleep(6)
     
     return processed_data
 
