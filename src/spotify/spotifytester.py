@@ -1,20 +1,16 @@
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
-from spotipy.oauth2 import SpotifyOAuth
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 from credentials import APIKeys
+import pandas as pd
 
 client_id = APIKeys.get_client_id()
 client_secret = APIKeys.get_client_secret()
 
-# printing values to see if they are accessible
-print(client_id)
-print(client_secret)
-
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-redirect_uri = 'http://localhost:8889/callback'
-playlist_id = '54FWKfSRIHnwkq0trEyT5h'  # Our project's playlist ID
+redirect_uri = 'http://localhost:8891/callback'
+playlist_id = '54FWKfSRIHnwkq0trEyT5h'  # Your playlist ID
 
 # Set up authorization
 scope = "playlist-read-private"
@@ -32,11 +28,28 @@ while results['next']:
     results = sp.next(results)
     tracks.extend(results['items'])
 
-# Print track names and artists
+# Initialize a list to hold your data
+data = []
+
+# Iterate over tracks and collect data
 for idx, item in enumerate(tracks):
-    track = item['track']
-    print(f"{idx+1}. {track['name']} by {', '.join(artist['name'] for artist in track['artists'])}")
+    track = item.get('track')
+    if track is None:
+        print(f"Track {idx+1} is unavailable or missing data.")
+        continue  # Skip this iteration if track is None
 
+    # Extract the required information
+    track_name = track['name']
+    artist_names = ', '.join(artist['name'] for artist in track['artists'])
+    artist_id = track['album']['artists'][0]['id'] if track['album']['artists'] else None
+    track_id = track['id']
 
+    # Append to the data list
+    data.append({'Song Name': track_name, 'Artists': artist_names, 'Artist_ID': artist_id, 'Track_ID': track_id})
 
+# Create DataFrame
+df = pd.DataFrame(data)
 
+# Display the DataFrame
+print(df)
+df.to_csv('songs.csv', index=False)
