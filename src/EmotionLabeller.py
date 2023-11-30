@@ -5,7 +5,7 @@ import time
 import requests
 
 # Set your OpenAI API key
-openai.api_key = openai.api_key = os.environ.get('$OPEN_AI_API_KEY')
+openai.api_key = os.environ.get('$OPEN_AI_API_KEY')
 
 # List of emotions
 emotions = [
@@ -55,9 +55,13 @@ def process_file(file_path, filename_without_ext):
                 except openai.error.ServiceUnavailableError as e:
                     print(f"Service unavailable error: {e}. Sleeping for 30 minutes...")
                     time.sleep(1800)
-                except openai.error.APIConnectionError as e:
+                except (requests.exceptions.ConnectionError, openai.error.APIConnectionError) as e:
                     print(f"Network error: {e}. Retrying...")
                     time.sleep(2)
+                except openai.error.RateLimitError as e:
+                    print(f"Rate limit exceeded: {e}. Waiting before retrying...")
+                    time.sleep(120)  # Wait for 2 minutes before retrying
+                
 
             emotions_list = get_emotions_from_response(response.choices[0].message.content)
             joined_emotions = ', '.join(emotions_list) if emotions_list else "Unknown"
