@@ -3,9 +3,10 @@ import csv
 import openai
 import time
 
-#Set your OpenAI API key
+# Set your OpenAI API key
 openai.api_key = os.environ.get('$OPEN_AI_API_KEY')
-#List of emotions
+
+# List of emotions
 emotions = [
     "Happiness", "Contentment", "Confidence", "Neutral", "Sadness",
     "Anger", "Fear", "Surprise", "Disgust", "Love",
@@ -13,7 +14,7 @@ emotions = [
     "Frustration", "Longing", "Optimism"
 ]
 
-input_dir = '../friendscsv'
+input_dir = 'sanath_csvs'
 output_dir = 'friendsprocessedcsv'
 
 # Create output directory if not exists
@@ -43,17 +44,16 @@ def process_file(file_path):
                             "content": "Analyze the dialogue: '{}'. Identify three emotions from this list - {} - that best convey the overall sentiment of the dialogue. Return 3 emotion names only from this list:".format(dialogue, ', '.join(emotions))
                         }]
                     )
-                    break  # Break the loop if the request was successful
+                    break
                 except openai.error.Timeout as e:
                     print(f"Timeout error: {e}. Retrying...")
-                    time.sleep(5)  # Wait for 5 seconds before retrying
+                    time.sleep(5)
                 except openai.error.APIError as e:
                     print(f"API error: {e}. Retrying...")
-                    time.sleep(10)  # Longer delay for API errors
+                    time.sleep(10)
                 except openai.error.ServiceUnavailableError as e:
                     print(f"Service unavailable error: {e}. Sleeping for 30 minutes...")
-                    time.sleep(1800)  # Sleep for 30 minutes
-                
+                    time.sleep(1800)
 
             emotions_list = get_emotions_from_response(response.choices[0].message.content)
             joined_emotions = ', '.join(emotions_list) if emotions_list else "Unknown"
@@ -77,5 +77,8 @@ for filename in os.listdir(input_dir):
             writer.writeheader()
             for data in processed_data:
                 writer.writerow(data)
+
+        # Delete the file from input directory after processing
+        os.remove(file_path)
 
 print("Processing completed.")
