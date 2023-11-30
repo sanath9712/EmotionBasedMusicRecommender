@@ -2,6 +2,7 @@ import os
 import csv
 import openai
 import time
+import requests
 
 # Set your OpenAI API key
 openai.api_key = os.environ.get('$OPEN_AI_API_KEY')
@@ -28,7 +29,7 @@ def get_emotions_from_response(response):
             extracted_emotions.append(emotion)
     return extracted_emotions
 
-def process_file(file_path):
+def process_file(file_path, filename_without_ext):
     processed_data = []
     with open(file_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -54,10 +55,13 @@ def process_file(file_path):
                 except openai.error.ServiceUnavailableError as e:
                     print(f"Service unavailable error: {e}. Sleeping for 30 minutes...")
                     time.sleep(1800)
+                except requests.exceptions.ConnectionError as e:
+                    print(f"Network error: {e}. Retrying...")
+                    time.sleep(30)
 
             emotions_list = get_emotions_from_response(response.choices[0].message.content)
             joined_emotions = ', '.join(emotions_list) if emotions_list else "Unknown"
-            print(f"Dialogue: {dialogue}\nIdentified Emotions: {joined_emotions}\n")
+            print(f"Episode: {filename_without_ext}\nDialogue: {dialogue}\nIdentified Emotions: {joined_emotions}\n")
             processed_data.append({'Dialogue': dialogue, 'Emotions': joined_emotions})
 
             time.sleep(6)
@@ -68,7 +72,8 @@ def process_file(file_path):
 for filename in os.listdir(input_dir):
     if filename.endswith('.csv'):
         file_path = os.path.join(input_dir, filename)
-        processed_data = process_file(file_path)
+        filename_without_ext = os.path.splitext(filename)[0]  # Remove the .csv extension
+        processed_data = process_file(file_path, filename_without_ext)
 
         # Write processed data to CSV
         output_file_path = os.path.join(output_dir, filename)
