@@ -52,5 +52,29 @@ button {
     border-radius: 12px;
     padding: 0px;
     opacity: 0;
-    transition: opacity 1s ease; /* Fade-in animation */
+    transition: opacity 1s ease; 
+}
+
+.submit-button {
+    background-color: #f8e6d1; /* Light shade of brown */
+    border: 2px solid black; /* Black border */
+    color: black; /* Text color */
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+    transition: transform 0.1s; /* Smooth click animation */
+}
+
+.submit-button:hover {
+    background-color: #e6d4c3; /* Slightly darker shade on hover */
+}
+
+.submit-button:active {
+    transform: translateY(4px); /* Pushes the button down when clicked */
 }

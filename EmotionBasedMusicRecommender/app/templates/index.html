@@ -6,17 +6,19 @@
     <title>Emotion-based Music Recommender</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <!-- Adjusted path to the CSS file -->
-    <link rel="stylesheet" href="../static/styles/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
 </head>
 <body>
     <h1>Emotion-based Music Recommender</h1>
     <textarea id="emotion-input" placeholder="How are you feeling today?"></textarea>
-    <button onclick="displaySpotifyTrack()">Submit</button>
+    <button class="submit-button" onclick="displaySpotifyTrack()">Submit</button>
     <div id="recommendation-message">We feel you may like...</div>
     <div id="spotify-iframe">
         <!-- Spotify track will be displayed here -->
     </div>
     <!-- Adjusted path to the JavaScript file -->
-    <script src="../static/js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
