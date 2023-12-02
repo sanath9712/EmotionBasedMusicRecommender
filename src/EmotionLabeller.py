@@ -68,8 +68,8 @@ def process_file(file_path, filename_without_ext):
             print(f"Episode: {filename_without_ext}\nDialogue: {dialogue}\nIdentified Emotions: {joined_emotions}\n")
             processed_data.append({'Dialogue': dialogue, 'Emotions': joined_emotions})
 
-            time.sleep(6)
-    
+            time.sleep(1.3)
+
     return processed_data
 
 # Process each file in the input directory and save to new CSV files
