@@ -36,9 +36,9 @@ button {
 #recommendation-message {
     font-family: 'Montserrat', sans-serif;
     font-size: 32px;
-    color: #996515; /* Golden brown color */
+    color: #996515; 
     opacity: 0;
-    transition: opacity 1s ease; /* Fade-in animation */
+    transition: opacity 1s ease; 
     display: none;
     margin-top: 40px;
     margin-bottom: 20px;
@@ -56,9 +56,9 @@ button {
 }
 
 .submit-button {
-    background-color: #f8e6d1; /* Light shade of brown */
-    border: 2px solid black; /* Black border */
-    color: black; /* Text color */
+    background-color: #f8e6d1; 
+    border: 2px solid black; 
+    color: black; 
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -67,14 +67,18 @@ button {
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 12px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
-    transition: transform 0.1s; /* Smooth click animation */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2); 
+    transition: transform 0.1s; 
 }
 
 .submit-button:hover {
-    background-color: #e6d4c3; /* Slightly darker shade on hover */
+    background-color: #e6d4c3; 
 }
 
 .submit-button:active {
-    transform: translateY(4px); /* Pushes the button down when clicked */
+    transform: translateY(4px); 
+}
+
+.empty-input::placeholder {
+    color: red;
 }
