@@ -4,7 +4,7 @@ from app import app
 import pandas as pd
 import random
 import os
-#from .model.emotion_predictor import get_emotion_from_text
+from .model.emotion_predictor import get_emotion_from_text
 from .helper import select_best_matching_song
 
 @app.route('/')
@@ -18,8 +18,8 @@ def get_random_track():
     random_track_id = random.choice(df['Track_ID'].dropna().tolist())
     return jsonify(track_id=random_track_id)
 
-@app.route('/get_emotion_from_text', methods=['POST'])
-def get_emotion_from_text():
+@app.route('/get_emotion_based_song', methods=['POST'])
+def get_emotion_based_song():
     data = request.json
     text = data.get('text', '')
 
