@@ -54,7 +54,3 @@ def get_emotion_from_text(text):
 
     predicted_emotions = [emotion for emotion, label in zip(emotions, predicted_labels[0]) if label == 1]
     return predicted_emotions
-
-# Example usage
-predicted_emotions = get_emotion_from_text("hey i love you")
-print("Predicted Emotions:", predicted_emotions)
