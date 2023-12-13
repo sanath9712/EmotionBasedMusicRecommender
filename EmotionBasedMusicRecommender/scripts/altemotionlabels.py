@@ -5,7 +5,7 @@ import time
 import requests
 
 # Set your OpenAI API key
-openai.api_key = os.environ.get('$OPEN_AI_API_KEY') 
+openai.api_key = os.environ.get('$OPEN_AI_API_KEY')
 
 # List of emotions
 emotions = [
@@ -22,8 +22,8 @@ emotions = [
 
 
 
-input_dir = 'data/<your_name>csv'
-output_dir = 'data/<your_name>processedcsv'
+input_dir = 'data/friendscsv'
+output_dir = 'data/additionalcsv'
 
 # Create output directory if not exists
 if not os.path.exists(output_dir):
@@ -62,21 +62,21 @@ def process_file(file_path, filename_without_ext):
                     print(f"API error: {e}. Retrying...")
                     time.sleep(10)
                 except openai.error.ServiceUnavailableError as e:
-                    print(f"Service unavailable error: {e}. Sleeping for 30 minutes...")
-                    time.sleep(1800)
+                    print(f"Service unavailable 2 minutes before retrying")
+                    time.sleep(1000)
                 except (requests.exceptions.ConnectionError, openai.error.APIConnectionError) as e:
                     print(f"Network error: {e}. Retrying...")
                     time.sleep(2)
                 except openai.error.RateLimitError as e:
-                    print(f"Rate limit exceeded: {e}. Waiting before retrying...")
-                    #time.sleep(120)  # Wait for 2 minutes before retrying
+                    print(f"Rate limit exceeded: {e} Ending the script")
                     return processed_data
+
                 
 
             emotions_list = get_emotions_from_response(response.choices[0].message.content)
             joined_emotions = ', '.join(emotions_list) if emotions_list else "Unknown"
             print(f"Episode: {filename_without_ext}\nDialogue: {dialogue}\nIdentified Emotions: {joined_emotions}\n")
-            processed_data.append({'Dialogue': dialogue, 'Emotions': joined_emotions})
+            processed_data.append({'Dialogue   ': dialogue, 'Emotions': joined_emotions})
 
             time.sleep(1.3)
 
