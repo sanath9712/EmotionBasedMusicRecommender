@@ -70,7 +70,7 @@ def process_file(file_path, filename_without_ext):
                 except openai.error.RateLimitError as e:
                     print(f"Rate limit exceeded: {e}. Waiting before retrying...")
                     #time.sleep(120)  # Wait for 2 minutes before retrying
-                    return processed_data, True
+                    return processed_data
                 
 
             emotions_list = get_emotions_from_response(response.choices[0].message.content)
@@ -80,14 +80,14 @@ def process_file(file_path, filename_without_ext):
 
             time.sleep(1.3)
 
-    return processed_data, False
+    return processed_data
 
 # Process each file in the input directory and save to new CSV files
 for filename in os.listdir(input_dir):
     if filename.endswith('.csv'):
         file_path = os.path.join(input_dir, filename)
         filename_without_ext = os.path.splitext(filename)[0]  # Remove the .csv extension
-        processed_data, rate_limit_hit = process_file(file_path, filename_without_ext)
+        processed_data = process_file(file_path, filename_without_ext)
 
         # Write processed data to CSV
         output_file_path = os.path.join(output_dir, filename)
