@@ -51,4 +51,4 @@ for idx, item in enumerate(tracks):
 df = pd.DataFrame(data)
 
 # The file is stored in the data directory
-df.to_csv('../../data/songs.csv', index=False)
+df.to_csv('data/songs.csv', index=False)
