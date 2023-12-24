@@ -2,6 +2,9 @@
 
 Discover music that matches your mood with the Emotion-based Music Recommender. Express your emotions or describe your day, and let the app recommend the perfect music track based on your feelings.
 
+## Link to the Demo of the application
+https://drive.google.com/file/d/1-RdHJGUm5Awxy2i0ld4IDHIY_zHlQJve/view?usp=drive_link
+
 ## How It Works
 
 1. Visit the web application in your browser.
