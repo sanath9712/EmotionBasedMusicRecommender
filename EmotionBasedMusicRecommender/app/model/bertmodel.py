@@ -6,7 +6,7 @@ import pandas as pd
 from tqdm import tqdm  # for progress bars
 
 # Load the preprocessed CSV file
-df = pd.read_csv('data/preprocessed_data.csv')
+df = pd.read_csv('data/Finalpreprocessed_data.csv')
 
 # Initialize the tokenizer for BERT
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
