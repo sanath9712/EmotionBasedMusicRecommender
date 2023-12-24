@@ -20,6 +20,12 @@ Explore new music genres and artists that match your mood. Whether you're feelin
 
 **Note:** This README provides a high-level overview for end users. Developers can refer to the full documentation for technical details shared below.
 
+# Steps to run:
+1. Install Flask
+2. Install all the dependencies listed in requirements.txt
+3. Navigate to the EmotionBasedMusicRecommender directory, open the terminal and run : python run.py
+4. The application be be running and please click on the link generated below the command to open the application
+
 # Methodology:
 ## Emotion Detection Model
 
