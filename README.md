@@ -40,7 +40,7 @@ Our emotion detection model will be implemented using advanced deep learning neu
 
 ## Music Database
 
-We will have a self curated Spotify playlist with 250-300 songs, each representing various emotions from our set.
+We will have a self curated Spotify playlist with ~ 500 songs, each representing various emotions from our set.
 Each song's emotional content will be analyzed based on lyrics, again with the help of ChatGPT, and cataloged in a CSV file with details like song name, emotions, and track ID(Spotify song ID). Each song is expected to be labelled with 3 emotions from our predetermined emotion list.
 
 ## User Interface
